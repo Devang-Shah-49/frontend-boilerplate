@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function Footer() {
     return (
-      <div style={{ maxWidth: "100%", position:"absolute", left:0, bottom:0, right:0 }}>
+      <div>
         <footer class="text-gray-600 body-font">
             <div class="container px-5 pb-5 mx-auto">
                 <div class="flex flex-wrap md:text-left text-center order-first">
