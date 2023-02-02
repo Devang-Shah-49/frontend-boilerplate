@@ -27,7 +27,7 @@ export default function Login() {
                 <p className="mt-2 text-center text-sm text-gray-600">
                   or{" "}
                   <a
-                    href="#"
+                    href="/signup"
                     className="font-medium text-indigo-600 hover:text-indigo-500"
                   >
                     Sign up
