@@ -51,7 +51,7 @@ export default function Signup() {
                       placeholder="Full Name"
                     />
                   </div>
-                  <div>
+                  {/* <div>
                     <label htmlFor="number" className="sr-only">
                       Phone Number
                     </label>
@@ -64,7 +64,7 @@ export default function Signup() {
                       className="relative block w-full rounded-md my-4  border border-gray-300 px-3 py-3 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                       placeholder="Phone"
                     />
-                  </div>
+                  </div> */}
                   <div>
                     <label htmlFor="email-address" className="sr-only">
                       Email address
