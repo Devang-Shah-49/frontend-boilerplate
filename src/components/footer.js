@@ -2,9 +2,9 @@ import React from 'react';
 
 export default function Footer() {
     return (
-      <div>
+      <div style={{ maxWidth: "100%", position:"absolute", left:0, bottom:0, right:0 }}>
         <footer class="text-gray-600 body-font">
-            <div class="container px-5 py-24 mx-auto">
+            <div class="container px-5 pb-5 mx-auto">
                 <div class="flex flex-wrap md:text-left text-center order-first">
                 <div class="lg:w-1/4 md:w-1/2 w-full px-4">
                     <h2 class="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">CATEGORIES</h2>
@@ -75,7 +75,7 @@ export default function Footer() {
                 </div>
             </div>
             <div class="bg-gray-100">
-                <div class="container px-5 py-6 mx-auto flex items-center sm:flex-row flex-col">
+                <div class="container px-5 pb-6 mx-auto flex items-center sm:flex-row flex-col">
                 <a class="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
                     <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
