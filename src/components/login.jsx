@@ -3,6 +3,7 @@ import { appContext } from "../context";
 import AuthServices from "../services/AuthServices";
 
 export default function Login() {
+  const { setUser, setToken } = useContext(appContext);
   const [load, setLoad] = useState(false);
   const [json, setJson] = useState({
     email: "",
@@ -18,10 +19,19 @@ export default function Login() {
 
   const handleClick = async () => {
     setLoad(true);
-    await AuthServices.signup(json).then((res) => {
-      setLoad(false);
-      console.log(res);
-    });
+    await AuthServices.login(json)
+      .then((res) => {
+        setLoad(false);
+        console.log(res);
+        setToken(res.data.data.token);
+        localStorage.setItem("appToken", res.data.data.token);
+        setUser(res.data.data.user);
+        localStorage.setItem("appUser", JSON.stringify(res.data.data.user));
+        localStorage.setItem("isAuthorized", true);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
   return (
     <>

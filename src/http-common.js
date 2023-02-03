@@ -1,8 +1,7 @@
 import axios from "axios";
 
 
-export default function httpCommon(){
-    axios.create({
+export default axios.create({
     baseURL: "https://typer-api.onrender.com",
 
     headers: {
@@ -11,4 +10,4 @@ export default function httpCommon(){
         "Access-Control-Allow-Origin": "*"
     },
     mode: "cors"
-})};
+});

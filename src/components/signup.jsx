@@ -7,10 +7,7 @@ export default function Signup() {
   const [status, setStatus] = useState();
   const [authEmail, setAuthEmail] = useState();
   const [tempToken, setTempToken] = useState();
-  const [otpjson, setOtpjson] = useState({
-    emailOtp: "",
-    authEmail: authEmail,
-  });
+  const [otpJson, setOtpJson] = useState("");
   const [json, setJson] = useState({
     name: "",
     email: "",
@@ -23,31 +20,29 @@ export default function Signup() {
     setJson({ ...json, [name]: value });
   };
 
-  const handleOTPChange = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    setOtpjson({ ...otpjson, [name]: value });
-  };
-
   const handleClick = async () => {
     setLoad(true);
     await AuthServices.signup(json).then((res) => {
       setLoad(false);
       setStatus(res.status);
-      setTempToken(res.data.token);
-      setAuthEmail(res.data.authEmailId);
+      setTempToken(res.data.data.token);
+      setAuthEmail(res.data.data.authEmailId);
       console.log(res);
     });
   };
 
   const handleOTPClick = async () => {
     setLoad(true);
-    await AuthServices.verifyOTP(otpjson, tempToken).then((res) => {
+    const payload = {
+      emailOtp: otpJson,
+      authEmailId: authEmail,
+    };
+    await AuthServices.verifyOTP(payload, tempToken).then((res) => {
       console.log(res);
     });
   };
 
-  console.log(json);
+  console.log(otpJson);
   return (
     <>
       <div className=" w-full grid grid-flow-col grid-cols-2 min-h-screen ">
@@ -94,7 +89,7 @@ export default function Signup() {
                       required
                       className="relative block w-full rounded-md my-4  border border-gray-300 px-3 py-3 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                       placeholder="Enter OTP"
-                      onChange={handleOTPChange}
+                      onChange={(e) => setOtpJson(e.target.value)}
                     />
                   </div>
                   <button
