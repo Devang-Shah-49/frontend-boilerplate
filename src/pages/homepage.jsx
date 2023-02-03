@@ -1,7 +1,7 @@
 import React from "react";
-import Navbar from "./navbar";
-import Footer from "./footer";
-import Dashboard from "./dashboard";
+import Navbar from "../components/navbar";
+import Footer from "../components/footer";
+import Dashboard from "../components/dashboard";
 
 export default function Home() {
   return (
