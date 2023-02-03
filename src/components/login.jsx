@@ -1,8 +1,10 @@
 import { useState, useEffect, useContext } from "react";
 import { appContext } from "../context";
 import AuthServices from "../services/AuthServices";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+  let navigate = useNavigate();
   const { setUser, setToken } = useContext(appContext);
   const [load, setLoad] = useState(false);
   const [json, setJson] = useState({
@@ -28,11 +30,18 @@ export default function Login() {
         setUser(res.data.data.user);
         localStorage.setItem("appUser", JSON.stringify(res.data.data.user));
         localStorage.setItem("isAuthorized", true);
+        navigate('/committee');
       })
       .catch((e) => {
         console.log(e);
       });
   };
+  useEffect(() => {
+    if(localStorage.getItem('isAuthorized')){
+      navigate('/committee')
+    }
+  }, [navigate])
+
   return (
     <>
       <div className=" w-full grid grid-flow-row grid-cols-2 min-h-screen">

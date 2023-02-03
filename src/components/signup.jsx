@@ -1,8 +1,10 @@
 import { useState, useEffect, useContext } from "react";
 import { appContext } from "../context";
 import AuthServices from "../services/AuthServices";
+import { useNavigate } from "react-router-dom";
 
 export default function Signup() {
+  let navigate = useNavigate();
   const { setUser, setToken } = useContext(appContext);
   const [load, setLoad] = useState(false);
   const [status, setStatus] = useState();
@@ -31,7 +33,8 @@ export default function Signup() {
       console.log(res);
     });
   };
-
+  
+  
   const handleOTPClick = async () => {
     setLoad(true);
     const payload = {
@@ -45,9 +48,16 @@ export default function Signup() {
       setUser(res.data.data.user);
       localStorage.setItem("appUser", JSON.stringify(res.data.data.user));
       localStorage.setItem("isAuthorized", true);
+      navigate('/committee');
     });
   };
 
+  useEffect(() => {
+    if(localStorage.getItem('isAuthorized')){
+      navigate('/committee')
+    }
+  }, [navigate])
+  
   console.log(otpJson);
   return (
     <>

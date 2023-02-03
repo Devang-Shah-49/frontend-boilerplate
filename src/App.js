@@ -10,7 +10,8 @@ import Home from './pages/homepage';
 import Landingpage from './pages/landingpage';
 import Signup from './components/signup';
 import { useContext, useState, useEffect } from 'react';
-import { appContext } from "./context"
+import { appContext } from "./context";
+import PrivateRoute from './helpers/PrivateRoutes/PrivateRoute';
 
 
 function App() {
@@ -27,8 +28,8 @@ function App() {
             <Route exact path="/login" element={<Login />} />
             <Route exact path="/signup" element={<Signup />} />
             <Route exact path="/" element={<Landingpage />} />
-            <Route exact path="/committee" element={<Home />} />
-            <Route path="*" element={<Navigate replace to="/login" />} />
+            <Route exact path="/committee" element={<PrivateRoute component={Home} />} />
+            <Route path="*" element={<Navigate replace to="/" />} />
           </Routes>
         </Router>
       </appContext.Provider>
