@@ -1,6 +1,53 @@
-import { LockClosedIcon } from "@heroicons/react/20/solid";
+import { useState, useEffect, useContext } from "react";
+import { appContext } from "../context";
+import AuthServices from "../services/AuthServices";
 
 export default function Signup() {
+  const [load, setLoad] = useState(false);
+  const [status, setStatus] = useState();
+  const [authEmail, setAuthEmail] = useState();
+  const [tempToken, setTempToken] = useState();
+  const [otpjson, setOtpjson] = useState({
+    emailOtp: "",
+    authEmail: authEmail,
+  });
+  const [json, setJson] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setJson({ ...json, [name]: value });
+  };
+
+  const handleOTPChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setOtpjson({ ...otpjson, [name]: value });
+  };
+
+  const handleClick = async () => {
+    setLoad(true);
+    await AuthServices.signup(json).then((res) => {
+      setLoad(false);
+      setStatus(res.status);
+      setTempToken(res.data.token);
+      setAuthEmail(res.data.authEmailId);
+      console.log(res);
+    });
+  };
+
+  const handleOTPClick = async () => {
+    setLoad(true);
+    await AuthServices.verifyOTP(otpjson, tempToken).then((res) => {
+      console.log(res);
+    });
+  };
+
+  console.log(json);
   return (
     <>
       <div className=" w-full grid grid-flow-col grid-cols-2 min-h-screen ">
@@ -34,24 +81,50 @@ export default function Signup() {
                   </a>
                 </p>
               </div>
-              <form className="mt-8 space-y-6" action="#" method="POST">
-                <input type="hidden" name="remember" defaultValue="true" />
-                <div className="-space-y-px rounded-md shadow-sm">
+              {status === 201 ? (
+                <>
                   <div>
                     <label htmlFor="name" className="sr-only">
-                      Name
+                      Enter OTP
                     </label>
                     <input
-                      id="email-address"
-                      name="name"
-                      type="text"
-                      autoComplete="name"
+                      name="emailOtp"
+                      type="number"
+                      autoComplete=""
                       required
                       className="relative block w-full rounded-md my-4  border border-gray-300 px-3 py-3 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                      placeholder="Full Name"
+                      placeholder="Enter OTP"
+                      onChange={handleOTPChange}
                     />
                   </div>
-                  {/* <div>
+                  <button
+                    type="button"
+                    onClick={handleOTPClick}
+                    className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  >
+                    Verify
+                  </button>
+                </>
+              ) : (
+                <>
+                  <form className="mt-8 space-y-6" action="#" method="POST">
+                    <input type="hidden" name="remember" defaultValue="true" />
+                    <div className="-space-y-px rounded-md shadow-sm">
+                      <div>
+                        <label htmlFor="name" className="sr-only">
+                          Name
+                        </label>
+                        <input
+                          name="name"
+                          type="text"
+                          autoComplete="name"
+                          required
+                          className="relative block w-full rounded-md my-4  border border-gray-300 px-3 py-3 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                          placeholder="Name"
+                          onChange={handleChange}
+                        />
+                      </div>
+                      {/* <div>
                     <label htmlFor="number" className="sr-only">
                       Phone Number
                     </label>
@@ -65,44 +138,47 @@ export default function Signup() {
                       placeholder="Phone"
                     />
                   </div> */}
-                  <div>
-                    <label htmlFor="email-address" className="sr-only">
-                      Email address
-                    </label>
-                    <input
-                      id="email-address"
-                      name="email"
-                      type="email"
-                      autoComplete="email"
-                      required
-                      className="relative block w-full rounded-md my-4  border border-gray-300 px-3 py-3 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                      placeholder="Email address"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="password" className="sr-only">
-                      Password
-                    </label>
-                    <input
-                      id="password"
-                      name="password"
-                      type="password"
-                      autoComplete="current-password"
-                      required
-                      className="relative block w-full border rounded-md my-4 border-gray-300 px-3 py-3 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-                      placeholder="Password"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <button
-                    type="submit"
-                    className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                  >
-                    Sign Up
-                  </button>
-                </div>
-              </form>
+                      <div>
+                        <label htmlFor="email-address" className="sr-only">
+                          Email address
+                        </label>
+                        <input
+                          name="email"
+                          type="email"
+                          autoComplete="email"
+                          required
+                          className="relative block w-full rounded-md my-4  border border-gray-300 px-3 py-3 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                          placeholder="Email address"
+                          onChange={handleChange}
+                        />
+                      </div>
+                      <div>
+                        <label htmlFor="password" className="sr-only">
+                          Password
+                        </label>
+                        <input
+                          name="password"
+                          type="password"
+                          autoComplete="current-password"
+                          required
+                          className="relative block w-full border rounded-md my-4 border-gray-300 px-3 py-3 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                          placeholder="Password"
+                          onChange={handleChange}
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <button
+                        type="button"
+                        onClick={handleClick}
+                        className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                      >
+                        Sign Up
+                      </button>
+                    </div>
+                  </form>
+                </>
+              )}
             </div>
           </div>
         </div>

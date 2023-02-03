@@ -1,6 +1,28 @@
-import { LockClosedIcon } from "@heroicons/react/20/solid";
+import { useState, useEffect, useContext } from "react";
+import { appContext } from "../context";
+import AuthServices from "../services/AuthServices";
 
 export default function Login() {
+  const [load, setLoad] = useState(false);
+  const [json, setJson] = useState({
+    email: "",
+    password: "",
+  });
+  const handleChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setJson({ ...json, [name]: value });
+  };
+
+  console.log(json);
+
+  const handleClick = async () => {
+    setLoad(true);
+    await AuthServices.signup(json).then((res) => {
+      setLoad(false);
+      console.log(res);
+    });
+  };
   return (
     <>
       <div className=" w-full grid grid-flow-row grid-cols-2 min-h-screen">
@@ -42,13 +64,13 @@ export default function Login() {
                       Email address
                     </label>
                     <input
-                      id="email-address"
                       name="email"
                       type="email"
                       autoComplete="email"
                       required
                       className="relative block w-full rounded-md my-4  border border-gray-300 px-3 py-3 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                       placeholder="Email address"
+                      onChange={handleChange}
                     />
                   </div>
                   <div>
@@ -56,13 +78,13 @@ export default function Login() {
                       Password
                     </label>
                     <input
-                      id="password"
                       name="password"
                       type="password"
                       autoComplete="current-password"
                       required
                       className="relative block w-full border rounded-md my-4 border-gray-300 px-3 py-3 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                       placeholder="Password"
+                      onChange={handleChange}
                     />
                   </div>
                 </div>
@@ -95,7 +117,8 @@ export default function Login() {
 
                 <div>
                   <button
-                    type="submit"
+                    type="button"
+                    onClick={handleClick}
                     className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                   >
                     <span className="absolute inset-y-0 left-0 flex items-center pl-3"></span>
