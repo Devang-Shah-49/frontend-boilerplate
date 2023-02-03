@@ -26,8 +26,8 @@ function App() {
           <Routes>
             <Route exact path="/login" element={<Login />} />
             <Route exact path="/signup" element={<Signup />} />
-            <Route exact path="/" element={<Home />} />
-            <Route exact path="/landing" element={<Landingpage />} />
+            <Route exact path="/" element={<Landingpage />} />
+            <Route exact path="/committee" element={<Home />} />
             <Route path="*" element={<Navigate replace to="/login" />} />
           </Routes>
         </Router>

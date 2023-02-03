@@ -1,14 +1,12 @@
 import React from "react";
-import Navbar from "../components/navbar";
-import Footer from "../components/footer";
-import Dashboard from "../components/dashboard";
+import CommitteeDashboard from "../components/Committee/Committee";
+// import CollegeDashboard from "../components/College/College";
 
 export default function Home() {
   return (
-    <div>
-      {/* <Navbar/> */}
-      {/* <Footer /> */}
-      <Dashboard />
-    </div>
+    <>
+      <CommitteeDashboard />
+      {/* <CollegeDashboard /> */}
+    </>
   );
 }
