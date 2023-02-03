@@ -3,6 +3,7 @@ import { appContext } from "../context";
 import AuthServices from "../services/AuthServices";
 
 export default function Signup() {
+  const { setUser, setToken } = useContext(appContext);
   const [load, setLoad] = useState(false);
   const [status, setStatus] = useState();
   const [authEmail, setAuthEmail] = useState();
@@ -39,6 +40,11 @@ export default function Signup() {
     };
     await AuthServices.verifyOTP(payload, tempToken).then((res) => {
       console.log(res);
+      setToken(res.data.data.token);
+      localStorage.setItem("appToken", res.data.data.token);
+      setUser(res.data.data.user);
+      localStorage.setItem("appUser", JSON.stringify(res.data.data.user));
+      localStorage.setItem("isAuthorized", true);
     });
   };
 
