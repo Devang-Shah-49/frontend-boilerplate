@@ -5,16 +5,16 @@ import { Link } from "react-router-dom";
 const CollegeCards = ({ item, id, title, description, image }) => {
   return (
     <>
-      <Link to={`/committee/event_${id}`} state={{ event_details: item }}>
-        <div class="max-w-md bg-white border lg:mx-8 border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
+      <Link to={`/college/club_${id}`} state={{ club_details: item }}>
+        <div class="max-w-md bg-white border lg:mx-8 border-gray-200 rounded-lg shadow-black shadow-sm dark:bg-gray-800 dark:border-gray-700">
           <div className="relative">
-            <img className="rounded-t-lg" src={image} alt="" />
+            <img className="object-contain h-44 w-80 rounded-t-lg" src={image} alt="" />
             <span class=" z-10 absolute top-2 right-0 bg-darkskyblue text-bdazzledblue text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
               Pending
             </span>
           </div>
-          <div class="p-5">
-            <Link to={`/committee/event_${id}`} state={{ event_details: item }}>
+          <div class="bg-indigo-50 p-5">
+            <Link to={`/college/club_${id}`} state={{ club_details: item }}>
               <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
                 {title}
               </h5>
@@ -23,9 +23,9 @@ const CollegeCards = ({ item, id, title, description, image }) => {
               {description?.substring(0, 20)}...
             </p>
             <Link
-              to={`/committee/event_${id}`}
-              state={{ event_details: item }}
-              class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-bdazzledblue rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              to={`/college/club_${id}`}
+              state={{ club_details: item }}
+              class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-indigo-600 rounded-lg hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               Read more
               <svg

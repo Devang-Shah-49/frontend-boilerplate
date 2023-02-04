@@ -9,7 +9,8 @@ const EventCard = ({ item, id, title, description, image }) => {
       <div class="max-w-md bg-white border lg:mx-8 border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
         <div className="relative">
           <img
-            className="rounded-t-lg"
+          height={70}
+            className="object-contain h-44 w-80 rounded-t-lg"
             src={image}
             alt=""
           />

@@ -3,6 +3,11 @@ import React from 'react'
 export default function AboutCollege() {
   return (
     <div>
+      {/* <button
+        className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
+      >
+        Check Pending Approvals
+      </button> */}
         <div class="container px-5 pt-14 mx-auto">
         <div class="flex flex-col text-center w-full mb-20">
           <h2 class="text-lg text-purple-500 tracking-widest font-medium title-font mb-1">
