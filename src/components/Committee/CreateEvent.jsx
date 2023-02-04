@@ -329,7 +329,6 @@ export default function CreateEvent() {
                                   <div className="mt-1">
                                     <input
                                       type="text"
-                                      id="description"
                                       name="description"
                                       onChange={(e) => {
                                         setPayload({
