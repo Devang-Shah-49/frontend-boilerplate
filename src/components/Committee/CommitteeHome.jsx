@@ -1,8 +1,20 @@
-import React from "react";
+import React, { useEffect,useContext } from "react";
 import EventCard from "./EventCard";
 import StatusTimeline from "./StatusTimeline";
+import { appContext } from "../../context";
+import EventsServices from "../../services/EventsServices";
 
 export default function About() {
+  const {token} = useContext(appContext)
+  console.log(token)
+  useEffect(()=>{
+    const call = async ()=>{
+        await EventsServices.getEvents(token).then((res)=>{
+          console.log(res)
+        })
+    }
+    call();
+  },[])
   return (
     <div>
       <div class="container px-5 pt-14 mx-auto">

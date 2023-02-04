@@ -1,6 +1,8 @@
 import React from "react";
+import axios from "axios";
 
 const EventCard = ({ id, title, description, image }) => {
+
   return (
     <>
       <div class="max-w-xs bg-white border mx-4 border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">

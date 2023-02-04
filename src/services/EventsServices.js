@@ -9,7 +9,17 @@ const createEvent = async (data, token) => {
     });
     return res
 };
+const getEvents = async (token) => {
+    const res = await httpCommon.get(`/api/event/`, {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        }
+    });
+    return res
+};
 
 export default {
-    createEvent
+    createEvent,
+    getEvents
 }
