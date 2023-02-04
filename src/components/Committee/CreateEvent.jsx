@@ -3,11 +3,11 @@ import Navbar from "../navbar";
 import Footer from "../footer";
 import { Tab } from "@headlessui/react";
 import { useState, useEffect, useContext } from "react";
-import { appContext } from "../../context";
 import EventsServices from "../../services/EventsServices";
 import CreateEventForm from "./CreateEventForm";
 import Calendar from "./Calendar";
 import { v4 as uuidv4 } from "uuid";
+import { appContext } from "../../context";
 import {
   ref,
   uploadBytes,

@@ -39,6 +39,8 @@ const updateEvent = async (data, token, id) => {
     return res
 }
 
+
+
 export default {
     createEvent,
     getEvents,
