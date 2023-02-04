@@ -21,5 +21,6 @@ const raiseQuery = async (data, token) => {
 }
 
 export default {
-    createCommittee
+    createCommittee,
+    raiseQuery
 }

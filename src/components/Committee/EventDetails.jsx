@@ -121,19 +121,18 @@ const EventDetails = ({ item }) => {
                     <div className="md:grid md:grid-cols-3 md:gap-6">
                       <div className="md:col-span-1 ">
                         <div className="mt-5 px-4 sm:px-0">
-                        <img
+                          <img
                             className="h-56 w-[23em] mb-5 rounded-xl"
                             src={payload?.thumbnail}
                           ></img>
-                          <h3 className="flex justify-center text-2xl font-medium leading-6 text-gray-900">
-                       
-                            <span className="font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-bdazzledblue to-darkskyblue md:inline-flex md:items-center md:justify-center">
+                          <h3 className="flex text-2xl font-medium leading-6 text-gray-900">
+                            <span className="font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-bdazzledblue to-darkskyblue md:inline-flex">
                               {payload?.name}
                             </span>
                           </h3>
-                          <p className="mt-4 text-md text-gray-600">{payload?.description}
+                          <p className="mt-4 text-md text-gray-600">
+                            {payload?.description}
                           </p>
-                      
                         </div>
                       </div>
                       <div className="mt-5  md:col-span-2 md:mt-0">
