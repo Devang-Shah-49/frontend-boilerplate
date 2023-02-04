@@ -14,8 +14,10 @@ import {
     Squares2X2Icon,
     XMarkIcon,
   } from '@heroicons/react/24/outline'
+import { useNavigate } from 'react-router-dom';
 
 export default function Banner() {
+  const navigate = useNavigate()
   return (
     <div className="bg-indigo-600">
       <div className="mx-auto max-w-7xl py-3 px-3 sm:px-6 lg:px-8">
@@ -30,12 +32,14 @@ export default function Banner() {
             </p>
           </div>
           <div className="order-3 mt-2 w-full flex-shrink-0 sm:order-2 sm:mt-0 sm:w-auto">
+            {/* <button onClick={navigate("/committee/create-event")}> */}
             <a
-              href="#"
+              href="/committee/create-event"
               className="flex items-center justify-center rounded-md border border-transparent bg-white px-4 py-2 text-sm font-medium text-indigo-600 shadow-sm hover:bg-indigo-50"
             >
               Request event permissions
             </a>
+            {/* </button> */}
           </div>
           <div className="order-2 flex-shrink-0 sm:order-3 sm:ml-3">
             {/* <button

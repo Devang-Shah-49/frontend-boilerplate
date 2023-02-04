@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import './App.css';
 import Login from './components/login';
+import CreateEvent from './components/Committee/CreateEvent';
 import Home from './pages/homepage';
 import Landingpage from './pages/landingpage';
 import Signup from './components/signup';
@@ -28,6 +29,7 @@ function App() {
             <Route exact path="/login" element={<Login />} />
             <Route exact path="/signup" element={<Signup />} />
             <Route exact path="/" element={<Landingpage />} />
+            <Route exact path="/committee/create-event" element={<PrivateRoute component={CreateEvent} />} />
             <Route exact path="/committee" element={<PrivateRoute component={Home} />} />
             <Route path="*" element={<Navigate replace to="/" />} />
           </Routes>
