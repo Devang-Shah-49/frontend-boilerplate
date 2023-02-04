@@ -3,6 +3,7 @@ import Navbar from "../navbar";
 import Footer from "../footer";
 import { Tab } from "@headlessui/react";
 import CreateEventForm from "./CreateEventForm";
+import Calendar from './Calendar';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
