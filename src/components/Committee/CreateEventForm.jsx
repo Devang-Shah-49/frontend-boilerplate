@@ -11,6 +11,7 @@ export default function CreateEvent() {
     name: "",
     description: "",
     date: "",
+    thumbnail: "",
     isSelection: false,
     isPayment: false,
     amount: "",
@@ -24,12 +25,20 @@ export default function CreateEvent() {
 
   const handleClick = async () => {
     setLoad(true);
-    await EventsServices.createEvent(payload, token).then((res) => {
+    const event = new FormData();
+    event.append("name", payload.name);
+    event.append("description", payload.description);
+    event.append("date", payload.date);
+    event.append("thumbnail", payload.thumbnail);
+    event.append("isSelection", payload.isSelection);
+    event.append("isPayment", payload.isPayment);
+    event.append("amount", payload.amount);
+    event.append("approval", payload.approval);
+    console.log(event);
+    await EventsServices.createEvent(event, token).then((res) => {
       console.log(res);
     });
   };
-
-  console.log(payload);
   return (
     <>
       <div className="m-8 lg:m-10">
