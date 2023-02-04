@@ -24,7 +24,7 @@ const EventCard = ({ item, id, title, description, image }) => {
             </h5>
           </Link>
           <p class="mb-3 text-md font-normal text-gray-700 dark:text-gray-400">
-            {description}
+            {description.substring(0,20)}...
           </p>
           <Link 
             to={`/committee/event_${id}`} state={{"event_details":item}}
