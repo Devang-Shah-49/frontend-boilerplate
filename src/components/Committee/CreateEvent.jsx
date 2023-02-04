@@ -25,6 +25,9 @@ export default function CreateEvent() {
   const { token } = useContext(appContext);
   // console.log(token);
   const [imageUpload, setImageUpload] = useState();
+  const [approvalBodiesList, setApprovalBodiesList] = useState();
+  const [approvePayload, setApprovePayload] = useState([]);
+  const [checked, setChecked] = useState([]);
   const [load, setLoad] = useState(false);
   const [imageUrls, setImageUrls] = useState([]);
   const [payload, setPayload] = useState({
@@ -35,13 +38,18 @@ export default function CreateEvent() {
     isSelection: false,
     isPayment: false,
     amount: 0,
-    approval: [
-      {
-        id: "63de3038e6a8e1eb4d5610f2",
-        name: "HOD Comps",
-      },
-    ],
+    approval: [],
   });
+
+  const handleCheck = (event) => {
+    var updatedList = [...checked];
+    if (event.target.checked) {
+      updatedList = [...checked, event.target.value];
+    } else {
+      updatedList.splice(checked.indexOf(event.target.value), 1);
+    }
+    setChecked(updatedList);
+  };
 
   const uploadFile = () => {
     setLoad(true);
@@ -63,7 +71,10 @@ export default function CreateEvent() {
     const call = async () => {
       await EventsServices.getApprovalBodies(
         localStorage.getItem("appToken")
-      ).then((res) => console.log(res));
+      ).then((res) => {
+        console.log(res);
+        setApprovalBodiesList(res.data.data);
+      });
     };
     call();
   }, []);
@@ -85,6 +96,8 @@ export default function CreateEvent() {
       console.log(res);
     });
   };
+
+  console.log(checked);
 
   return (
     <div>
@@ -486,56 +499,61 @@ export default function CreateEvent() {
                               By Email
                             </div>
                             <div className="mt-4 space-y-4">
-                              <div className="flex gap-4 items-start">
-                                <div className="flex h-5 items-center">
-                                  <input
-                                    id="comments"
-                                    name="comments"
-                                    type="checkbox"
-                                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                  />
-                                </div>
+                              {approvalBodiesList?.map((item) => (
                                 <div
-                                  href="#"
-                                  class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row w-full  dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
+                                  key={item._id}
+                                  className="flex gap-4 items-start"
                                 >
-                                  <img
-                                    class="lg:h-28 lg:w-28 rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
-                                    src="https://images.unsplash.com/photo-1661956602139-ec64991b8b16?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=365&q=80"
-                                    alt=""
-                                  />
-                                  <div class="flex flex-col justify-between p-4 leading-normal">
-                                    <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-                                      Department Name
-                                    </h5>
-                                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                                      Dept slug
-                                    </p>
+                                  <div className="flex h-5 items-center">
+                                    <input
+                                      id="comments"
+                                      name="comments"
+                                      type="checkbox"
+                                      onChange={(event) => {
+                                        var updatedList = [...checked];
+                                        if (event.target.checked) {
+                                          updatedList = [
+                                            ...checked,
+                                            {
+                                              name: item.name,
+                                              id: item._id,
+                                            },
+                                          ];
+                                        } else {
+                                          updatedList.splice(
+                                            checked.indexOf(event.target.value),
+                                            1
+                                          );
+                                        }
+                                        setChecked(updatedList);
+                                        setPayload({
+                                          ...payload,
+                                          approval: updatedList,
+                                        });
+                                      }}
+                                      className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                    />
+                                  </div>
+                                  <div
+                                    href="#"
+                                    class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row w-full  dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
+                                  >
+                                    <img
+                                      class="lg:h-28 lg:w-28 rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
+                                      src="https://images.unsplash.com/photo-1661956602139-ec64991b8b16?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=365&q=80"
+                                      alt=""
+                                    />
+                                    <div class="flex flex-col justify-between p-4 leading-normal">
+                                      <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+                                        {item.name}
+                                      </h5>
+                                      <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                                        {item.email}
+                                      </p>
+                                    </div>
                                   </div>
                                 </div>
-                              </div>
-                              <div className="flex items-start">
-                                <div className="flex h-5 items-center">
-                                  <input
-                                    id="candidates"
-                                    name="candidates"
-                                    type="checkbox"
-                                    className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                  />
-                                </div>
-                                <div className="ml-3 text-sm">
-                                  <label
-                                    htmlFor="candidates"
-                                    className="font-medium text-gray-700"
-                                  >
-                                    Candidates
-                                  </label>
-                                  <p className="text-gray-500">
-                                    Get notified when a candidate applies for a
-                                    job.
-                                  </p>
-                                </div>
-                              </div>
+                              ))}
                             </div>
                           </fieldset>
                         </div>
