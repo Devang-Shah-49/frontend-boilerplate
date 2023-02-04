@@ -21,13 +21,12 @@ function classNames(...classes) {
 const EventDetails = ({ item }) => {
   const navigate =  useNavigate();
   const search = useLocation();
+  const obj = search.state?.event_details;
   const [imageUpload, setImageUpload] = useState();
   const [checked, setChecked] = useState([]);
-  const [checked1, setChecked1] = useState([]);
   const [load, setLoad] = useState(false);
   const [imageUrls, setImageUrls] = useState([]);
-  const obj = search.state?.event_details;
-  console.log("hello", obj);
+  console.log("hello", search);
   const uploadFile = () => {
     setLoad(true);
     if (imageUpload == null) return;
@@ -52,12 +51,12 @@ const EventDetails = ({ item }) => {
     isSelection: obj?.isSelection,
     isPayment: obj?.payment?.isPayment,
     amount: obj?.payment?.amount,
-    approval: [
-      {
-        id: obj?.approval[0]?.id,
-        name: obj?.approval[0]?.name,
-      },
-    ],
+    // approval: [
+    //   {
+    //     id: obj?.approval[0]?.id,
+    //     name: obj?.approval[0]?.name,
+    //   },
+    // ],
     rsvp: [],
   });
   const sendCertificates = async()=>{
@@ -65,18 +64,18 @@ const EventDetails = ({ item }) => {
   }
   const handleSubmit = async () => {
     setLoad(true);
-    var formData = require("form-data");
-    const event = new formData();
-    event.append("name", `${payload.name}`);
-    event.append("description", payload.description);
-    event.append("date", payload.date);
-    event.append("thumbnail", payload.thumbnail);
-    event.append("isSelection", payload.isSelection);
-    event.append("isPayment", payload.isPayment);
-    event.append("amount", payload.amount);
-    event.append("approval", payload.approval);
-    console.log(event);
-    await EventsServices.createEvent(payload, localStorage.getItem("appToken")).then((res) => {
+    // var formData = require("form-data");
+    // const event = new formData();
+    // event.append("name", `${payload.name}`);
+    // event.append("description", payload.description);
+    // event.append("date", payload.date);
+    // event.append("thumbnail", payload.thumbnail);
+    // event.append("isSelection", payload.isSelection);
+    // event.append("isPayment", payload.isPayment);
+    // event.append("amount", payload.amount);
+    // event.append("approval", payload.approval);
+    // console.log(event);
+    await EventsServices.updateEvent(payload, localStorage.getItem("appToken"), obj?._id).then((res) => {
       console.log(res);
     });
   };

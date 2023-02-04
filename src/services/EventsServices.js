@@ -30,7 +30,7 @@ const getApprovalBodies = async (token) => {
 }
 
 const updateEvent = async (data, token, id) => {
-    const res = await httpCommon.post(`/api/event/${id}`, JSON.stringify(data), {
+    const res = await httpCommon.put(`/api/event/${id}`, JSON.stringify(data), {
         headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',
