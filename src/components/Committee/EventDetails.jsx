@@ -3,6 +3,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Tab } from "@headlessui/react";
 import Navbar from "../navbar";
 import Footer from "../footer";
+import StatusTimeLine from "./StatusTimeline";
 import {
   ref,
   uploadBytes,
@@ -70,6 +71,16 @@ const EventDetails = ({ item }) => {
     });
     navigate("/committee");
   };
+
+  const handlePublish = async () => {
+    await EventsServices.publishEvent(
+      localStorage.getItem("appToken"),
+      obj?._id
+    ).then((res) => {
+      console.log(res);
+    });
+  };
+
   return (
     <>
       <Navbar />
@@ -77,7 +88,7 @@ const EventDetails = ({ item }) => {
         <Tab.Group>
           <Tab.List
             // as={Fragment}
-            className="mt-8 flex  items-center justify-center w-1/2 rounded-xl bg-bdazzledblue lg:mx-96 p-1"
+            className="mt-8 flex  items-center justify-center w-1/2 rounded-xl bg-indigo-600 lg:mx-96 p-1"
           >
             <Tab
               index={1}
@@ -86,7 +97,7 @@ const EventDetails = ({ item }) => {
                   "w-full rounded-lg py-3.5 text-md font-medium leading-5 text-indigo-600",
                   "ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
                   selected
-                    ? "bg-white shadow text-bdazzledblue"
+                    ? "bg-white shadow text-indigo-600"
                     : "text-blue-100 hover:bg-white/[0.12] hover:text-white"
                 )
               }
@@ -100,7 +111,7 @@ const EventDetails = ({ item }) => {
                   "w-full rounded-lg py-3.5 text-md font-medium leading-5 text-indigo-600",
                   "ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
                   selected
-                    ? "bg-white shadow text-bdazzledblue"
+                    ? "bg-white shadow text-indigo-600"
                     : "text-blue-100 hover:bg-white/[0.12] hover:text-white"
                 )
               }
@@ -112,7 +123,14 @@ const EventDetails = ({ item }) => {
           <Tab.Panels className="mt-2">
             <Tab.Panel>
               <>
-                <div className="m-16 lg:m-16">
+                <div className="m-16 lg:m-16 ">
+                  <div className=" lg:mx-16 w-full items-center flex justify-center">
+                    <StatusTimeLine
+                      pending={obj?.isPending}
+                      inReview={obj?.isInReview}
+                      approved={obj.isApproved}
+                    />
+                  </div>
                   <div className="hidden sm:block" aria-hidden="true">
                     <div className="py-5"></div>
                   </div>
@@ -137,7 +155,7 @@ const EventDetails = ({ item }) => {
                       </div>
                       <div className="mt-5  md:col-span-2 md:mt-0">
                         <form action="#" method="POST">
-                          <div className="overflow-hidden shadow sm:rounded-md">
+                          <div className="overflow-hidden shadow-lg sm:rounded-xl">
                             <div className="bg-white px-4 py-5 lg:px-16 sm:p-6">
                               <div className="grid grid-cols-6 gap-6">
                                 <div className="col-span-6">
@@ -181,7 +199,7 @@ const EventDetails = ({ item }) => {
                                           <button
                                             onClick={uploadFile}
                                             type="button"
-                                            class="text-white absolute right-0 bottom-0.5 bg-gunmetal hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-tr-lg rounded-br-lg text-sm px-4 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                            class="text-white absolute right-0 bottom-0.5 bg-burntsienna hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-tr-lg rounded-br-lg text-sm px-4 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                           >
                                             Upload
                                           </button>
@@ -254,7 +272,7 @@ const EventDetails = ({ item }) => {
                                             isSelection: e.target.checked,
                                           });
                                         }}
-                                        className="h-4 w-4 rounded border-gray-300 text-indigo-600"
+                                        className="h-4 w-4 rounded border-gray-300 text-burntsienna"
                                       />
                                     </div>
                                     <div className="ml-3 text-sm">
@@ -283,7 +301,7 @@ const EventDetails = ({ item }) => {
                                             isPayment: e.target.checked,
                                           });
                                         }}
-                                        className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                        className="h-4 w-4 rounded border-gray-300 text-burntsienna"
                                       />
                                     </div>
                                     <div className="ml-3 text-sm">
@@ -320,7 +338,29 @@ const EventDetails = ({ item }) => {
                                 ) : null}
                               </div>
                             </div>
-                            <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
+                            <div className="px-4 py-3 text-right sm:px-6">
+                              {obj?.isApproved ? (
+                                <>
+                                  <button
+                                    type="button"
+                                    onClick={handlePublish}
+                                    className="mx-2 inline-flex justify-center rounded-md border border-transparent bg-green-200 py-2 px-6 text-sm font-medium text-green-600 shadow-sm  focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                                  >
+                                    Publish
+                                  </button>
+                                </>
+                              ) : (
+                                <>
+                                  <button
+                                    type="button"
+                                    disabled={true}
+                                    onClick={handleSubmit}
+                                    className="mx-2 inline-flex justify-center rounded-md border border-transparent bg-gray-200 py-2 px-6 text-sm font-medium text-gray-500 shadow-sm  focus:outline-none focus:ring-2  focus:ring-offset-2"
+                                  >
+                                    Publish
+                                  </button>
+                                </>
+                              )}
                               <button
                                 type="button"
                                 onClick={handleSubmit}
@@ -329,31 +369,44 @@ const EventDetails = ({ item }) => {
                                 Edit Event
                               </button>
                             </div>
-                            <div class="flex w-1/2 mb-10">
-                              {obj?.approval.map((item) => (
-                                <div class="flex flex-wrap  mx-4 -m-2">
-                                  <div class="p-2 w-full">
-                                    <div class="h-full flex items-center border-gray-200 border-2 border-bdazzledblue p-4 rounded-lg">
-                                      <img
-                                        alt="team"
-                                        class="w-16 h-16 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4"
-                                        src="https://dummyimage.com/80x80"
-                                      />
-                                      <div class="flex-grow">
-                                        <h2 class="text-gray-900 title-font font-medium">
-                                          Approval sent to
-                                        </h2>
-                                        <p class="text-gray-500">
-                                          {item?.name}
-                                        </p>
-                                        <p class="text-gray-500">
-                                          {item?.query[0]}
-                                        </p>
+                            <div className=" mt-2 w-full h-fit bg-indigo-100">
+                              <div className="flex items-center justify-center"></div>
+                              <div class="flex w-1/2 py-6">
+                                {obj?.approval.map((item) => (
+                                  <div class="flex flex-wrap  mx-4 -m-2 ">
+                                    <div class="p-2 w-[16em]">
+                                      <div class="h-full flex items-center shadow bg-white  shadow-gray-300 p-4 rounded-lg">
+                                        <img
+                                          alt="team"
+                                          class="w-16 h-16 bg-gray-100 object-cover object-center flex-shrink-0 rounded-full mr-4"
+                                          src="https://dummyimage.com/80x80"
+                                        />
+                                        <div class="flex-grow">
+                                          <p class="font-semibold mb-1">
+                                            {item?.name}
+                                          </p>
+                                          <p class="text-black">
+                                            {item?.isApproved === true ? (
+                                              <>
+                                                <span className="text-xs text-green-500 px-2 py-1 mt-1 bg-green-100 rounded-lg">
+                                                  Approved
+                                                </span>{" "}
+                                              </>
+                                            ) : (
+                                              <>
+                                                <span className="text-xs text-orange-500 px-2 py-1 mt-1 bg-orange-100 rounded-lg">
+                                                  {" "}
+                                                  Pending{" "}
+                                                </span>
+                                              </>
+                                            )}
+                                          </p>
+                                        </div>
                                       </div>
                                     </div>
                                   </div>
-                                </div>
-                              ))}
+                                ))}
+                              </div>
                             </div>
                           </div>
                         </form>

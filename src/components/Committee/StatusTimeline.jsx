@@ -1,20 +1,20 @@
 import React, { useState } from "react";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
-const StatusTimeline = () => {
-  const [status, setStatus] = useState(false);
+const StatusTimeline = ({ pending, inReview, approved }) => {
+  // const [status, setStatus] = useState(false);
   return (
     <>
-      <ol class="w-1/2 items-center sm:flex">
+      <ol class="w-1/2 items-center md:flex">
         <li class="relative mb-6 sm:mb-0">
           <div class="flex items-center">
             <div
               class={` ${
-                status ? "bg-green-100" : "bg-red-100"
+                pending ? "bg-green-100" : "bg-red-100"
               } z-10 flex items-center justify-center w-10 h-10  rounded-full ring-0 ring-white shrink-0`}
             >
               <CheckCircleIcon
                 className={` ${
-                  status ? "text-green-500" : "text-red-500"
+                  pending ? "text-green-500" : "text-red-500"
                 } w-5 h-5`}
               />
             </div>
@@ -25,7 +25,7 @@ const StatusTimeline = () => {
               Pending
             </h3>
             <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
-              Released on December 2, 2021
+              Event has been send to authorities for approval.
             </time>
           </div>
         </li>
@@ -33,12 +33,12 @@ const StatusTimeline = () => {
           <div class="flex items-center">
             <div
               class={` ${
-                status ? "bg-green-100" : "bg-red-100"
+                inReview ? "bg-green-100" : "bg-red-100"
               } z-10 flex items-center justify-center w-10 h-10  rounded-full ring-0 ring-white shrink-0`}
             >
               <CheckCircleIcon
                 className={` ${
-                  status ? "text-green-500" : "text-red-500"
+                  inReview ? "text-green-500" : "text-red-500"
                 } w-5 h-5`}
               />
             </div>
@@ -49,7 +49,7 @@ const StatusTimeline = () => {
               In-Review
             </h3>
             <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
-              Released on December 2, 2021
+              All authorities are yet to approve of the event.
             </time>
           </div>
         </li>
@@ -57,12 +57,12 @@ const StatusTimeline = () => {
           <div class="flex items-center">
             <div
               class={` ${
-                status ? "bg-green-100" : "bg-red-100"
+                approved ? "bg-green-100" : "bg-red-100"
               } z-10 flex items-center justify-center w-10 h-10  rounded-full ring-0 ring-white shrink-0`}
             >
               <CheckCircleIcon
                 className={` ${
-                  status ? "text-green-500" : "text-red-500"
+                  approved ? "text-green-500" : "text-red-500"
                 } w-5 h-5`}
               />
             </div>
@@ -73,7 +73,7 @@ const StatusTimeline = () => {
               Approved
             </h3>
             <time class="block mb-2 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">
-              Released on December 2, 2021
+              Event has been approved successfully :{")"}
             </time>
           </div>
         </li>

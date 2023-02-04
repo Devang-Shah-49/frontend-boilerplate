@@ -20,6 +20,8 @@ const raiseQuery = async (data, token) => {
     return res
 }
 
+
+
 export default {
     createCommittee,
     raiseQuery

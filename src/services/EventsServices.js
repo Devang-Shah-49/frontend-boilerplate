@@ -39,11 +39,22 @@ const updateEvent = async (data, token, id) => {
     return res
 }
 
+const publishEvent = async (token, id) => {
+    const res = await httpCommon.patch(`/api/event/publish/${id}`, {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        }
+    });
+    return res
+}
+
 
 
 export default {
     createEvent,
     getEvents,
     getApprovalBodies,
-    updateEvent
+    updateEvent,
+    publishEvent
 }
