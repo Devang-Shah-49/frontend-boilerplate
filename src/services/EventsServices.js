@@ -29,8 +29,19 @@ const getApprovalBodies = async (token) => {
     return res
 }
 
+const updateEvent = async (data, token, id) => {
+    const res = await httpCommon.post(`/api/event/${id}`, JSON.stringify(data), {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        }
+    });
+    return res
+}
+
 export default {
     createEvent,
     getEvents,
     getApprovalBodies,
+    updateEvent
 }

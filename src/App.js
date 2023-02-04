@@ -7,6 +7,8 @@ import {
 import './App.css';
 import Login from './components/login';
 import CreateEvent from './components/Committee/CreateEvent';
+import CreateCommittee from "./components/College/CreateCommittee";
+import CollegeHome from "./pages/collegepage";
 import Home from './pages/homepage';
 import Landingpage from './pages/landingpage';
 import Signup from './components/signup';
@@ -35,7 +37,9 @@ function App() {
             <Route exact path="/signup" element={<Signup />} />
             <Route exact path="/" element={<Landingpage />} />
             <Route exact path="/committee/create-event" element={<PrivateRoute component={CreateEvent} />} />
+            <Route exact path="/college/create-committee" element={<PrivateRoute component={CreateCommittee} />} />
             <Route exact path="/committee" element={<PrivateRoute component={Home} />} />
+            <Route exact path="/college" element={<PrivateRoute component={CollegeHome} />} />
             <Route path="*" element={<Navigate replace to="/" />} />
           </Routes>
         </Router>
