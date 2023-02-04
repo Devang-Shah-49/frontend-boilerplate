@@ -20,6 +20,11 @@ function App() {
   const [user, setUser] = useState(null)
 
   const context = { user, setUser, token, setToken };
+  useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem("appUser")))
+    setToken(localStorage.getItem("appToken"))
+    // setAccount(JSON.parse(localStorage.getItem("kpupAccount")))
+  }, [])
 
   return (
     <>

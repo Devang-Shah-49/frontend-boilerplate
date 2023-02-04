@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   let navigate = useNavigate();
-  const { setUser, setToken } = useContext(appContext);
+  const { setUser, setToken, token } = useContext(appContext);
   const [load, setLoad] = useState(false);
   const [json, setJson] = useState({
     email: "",
@@ -30,17 +30,19 @@ export default function Login() {
         setUser(res.data.data.user);
         localStorage.setItem("appUser", JSON.stringify(res.data.data.user));
         localStorage.setItem("isAuthorized", true);
-        navigate('/committee');
+        navigate("/committee");
       })
       .catch((e) => {
         console.log(e);
       });
   };
   useEffect(() => {
-    if(localStorage.getItem('isAuthorized')){
-      navigate('/committee')
+    if (localStorage.getItem("isAuthorized")) {
+      navigate("/committee");
     }
-  }, [navigate])
+  }, [navigate]);
+
+  console.log(token);
 
   return (
     <>

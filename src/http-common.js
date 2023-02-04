@@ -2,7 +2,7 @@ import axios from "axios";
 
 
 export default axios.create({
-    baseURL: "https://typer-api.onrender.com",
+    baseURL: "https://typer-api-c29c.onrender.com",
 
     headers: {
         "Content-type": "application/json",
