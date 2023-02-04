@@ -1,5 +1,5 @@
-import { Fragment } from 'react'
-import { Popover, Transition } from '@headlessui/react'
+import { Fragment } from "react";
+import { Popover, Transition } from "@headlessui/react";
 import {
   ArrowPathIcon,
   Bars3Icon,
@@ -14,11 +14,11 @@ import {
   ShieldCheckIcon,
   Squares2X2Icon,
   XMarkIcon,
-} from '@heroicons/react/24/outline'
-import { ChevronDownIcon } from '@heroicons/react/20/solid'
-import Navbar from '../navbar';
-import Banner from './Banner';
-import About from './About';
+} from "@heroicons/react/24/outline";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
+import Navbar from "../navbar";
+import Banner from "./Banner";
+import CommitteeHome from "./CommitteeHome";
 import Team from './Team';
 import Footer from '../footer';
 
@@ -83,9 +83,9 @@ export default function CommitteeDashboard() {
     <>
       <Navbar />
       <Banner />
-      <About />
+      <CommitteeHome />
       <Team />
       <Footer />
     </>
-  )
+  );
 }
