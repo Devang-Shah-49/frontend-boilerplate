@@ -19,7 +19,18 @@ const getEvents = async (token) => {
     return res
 };
 
+const getApprovalBodies = async (token) => {
+    const res = await httpCommon.get(`/api/user/get/approval-bodies`, {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        }
+    });
+    return res
+}
+
 export default {
     createEvent,
-    getEvents
+    getEvents,
+    getApprovalBodies,
 }

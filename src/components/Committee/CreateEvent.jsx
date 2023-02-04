@@ -6,7 +6,16 @@ import { useState, useEffect, useContext } from "react";
 import { appContext } from "../../context";
 import EventsServices from "../../services/EventsServices";
 import CreateEventForm from "./CreateEventForm";
-import Calendar from './Calendar';
+import Calendar from "./Calendar";
+import { v4 as uuidv4 } from "uuid";
+import {
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  listAll,
+  list,
+} from "firebase/storage";
+import { storage } from "../../firebase/config";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -15,23 +24,50 @@ function classNames(...classes) {
 export default function CreateEvent() {
   const { token } = useContext(appContext);
   // console.log(token);
+  const [imageUpload, setImageUpload] = useState();
   const [load, setLoad] = useState(false);
+  const [imageUrls, setImageUrls] = useState([]);
   const [payload, setPayload] = useState({
     name: "",
     description: "",
     date: "",
-    thumbnail: {},
+    thumbnail: "",
     isSelection: false,
     isPayment: false,
-    amount: "",
+    amount: 0,
     approval: [
       {
-        id: "",
-        name: "",
+        id: "63de3038e6a8e1eb4d5610f2",
+        name: "HOD Comps",
       },
     ],
   });
 
+  const uploadFile = () => {
+    setLoad(true);
+    if (imageUpload == null) return;
+    const imageRef = ref(storage, `images/${imageUpload.name} +`);
+    uploadBytes(imageRef, imageUpload).then((snapshot) => {
+      getDownloadURL(snapshot.ref).then((url) => {
+        setImageUrls(url);
+        console.log(url);
+        setPayload({
+          ...payload,
+          thumbnail: url,
+        });
+      });
+    });
+  };
+
+  useEffect(() => {
+    const call = async () => {
+      await EventsServices.getApprovalBodies(
+        localStorage.getItem("appToken")
+      ).then((res) => console.log(res));
+    };
+    call();
+  }, []);
+  console.log(payload);
   const handleClick = async () => {
     setLoad(true);
     var formData = require("form-data");
@@ -254,11 +290,11 @@ export default function CreateEvent() {
                                           <input
                                             name="thumbnail"
                                             type="file"
-                                            onChange={(e) => {
-                                              setPayload({
-                                                ...payload,
-                                                thumbnail: e.target.files[0],
-                                              });
+                                            onChange={(event) => {
+                                              setImageUpload(
+                                                event.target.files[0]
+                                              );
+                                              uploadFile();
                                             }}
                                           />
                                         </label>
@@ -278,7 +314,8 @@ export default function CreateEvent() {
                                     About
                                   </label>
                                   <div className="mt-1">
-                                    <textarea
+                                    <input
+                                      type="text"
                                       id="description"
                                       name="description"
                                       onChange={(e) => {
@@ -288,7 +325,7 @@ export default function CreateEvent() {
                                         });
                                       }}
                                       rows={4}
-                                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                      className="mt-1 block  w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                       placeholder="Description"
                                       defaultValue={""}
                                     />
@@ -322,8 +359,7 @@ export default function CreateEvent() {
                                   <div className="flex items-start my-4">
                                     <div className="flex h-5 items-center my-2">
                                       <input
-                                        id="offers"
-                                        name="offers"
+                                        name="isSelection"
                                         type="checkbox"
                                         onChange={(e) => {
                                           setPayload({
@@ -350,8 +386,7 @@ export default function CreateEvent() {
                                   <div className="flex items-start my-2">
                                     <div className="flex h-5 items-center my-2">
                                       <input
-                                        id="offers"
-                                        name="offers"
+                                        name="isPayment"
                                         type="checkbox"
                                         onChange={(e) => {
                                           setPayload({
@@ -367,7 +402,7 @@ export default function CreateEvent() {
                                         htmlFor="offers"
                                         className="font-medium text-gray-700"
                                       >
-                                        Free Event?
+                                        Not a Free Event?
                                       </label>
                                       <p className="text-gray-500">
                                         Tick the box if the event has no
@@ -386,8 +421,14 @@ export default function CreateEvent() {
                                         Amount
                                       </label>
                                       <input
-                                        type="number"
+                                        type="text"
                                         name="amount"
+                                        onChange={(e) => {
+                                          setPayload({
+                                            ...payload,
+                                            amount: e.target.value.trim(),
+                                          });
+                                        }}
                                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                                       />
                                     </div>
@@ -419,7 +460,7 @@ export default function CreateEvent() {
               </>
             </Tab.Panel>
             <Tab.Panel>
-              <div className="mt-10 sm:mt-0">
+              <div className=" p-8 mt-10 sm:mt-0">
                 <div className="md:grid md:grid-cols-3 md:gap-6">
                   <div className="md:col-span-1">
                     <div className="px-4 sm:px-0">
@@ -445,7 +486,7 @@ export default function CreateEvent() {
                               By Email
                             </div>
                             <div className="mt-4 space-y-4">
-                              <div className="flex items-start">
+                              <div className="flex gap-4 items-start">
                                 <div className="flex h-5 items-center">
                                   <input
                                     id="comments"
@@ -454,17 +495,23 @@ export default function CreateEvent() {
                                     className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                                   />
                                 </div>
-                                <div className="ml-3 text-sm">
-                                  <label
-                                    htmlFor="comments"
-                                    className="font-medium text-gray-700"
-                                  >
-                                    Comments
-                                  </label>
-                                  <p className="text-gray-500">
-                                    Get notified when someones posts a comment
-                                    on a posting.
-                                  </p>
+                                <div
+                                  href="#"
+                                  class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row w-full  dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
+                                >
+                                  <img
+                                    class="lg:h-28 lg:w-28 rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
+                                    src="https://images.unsplash.com/photo-1661956602139-ec64991b8b16?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=365&q=80"
+                                    alt=""
+                                  />
+                                  <div class="flex flex-col justify-between p-4 leading-normal">
+                                    <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+                                      Department Name
+                                    </h5>
+                                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                                      Dept slug
+                                    </p>
+                                  </div>
                                 </div>
                               </div>
                               <div className="flex items-start">
@@ -488,58 +535,6 @@ export default function CreateEvent() {
                                     job.
                                   </p>
                                 </div>
-                              </div>
-                            </div>
-                          </fieldset>
-                          <fieldset>
-                            <legend className="contents text-base font-medium text-gray-900">
-                              Push Notifications
-                            </legend>
-                            <p className="text-sm text-gray-500">
-                              These are delivered via SMS to your mobile phone.
-                            </p>
-                            <div className="mt-4 space-y-4">
-                              <div className="flex items-center">
-                                <input
-                                  id="push-everything"
-                                  name="push-notifications"
-                                  type="radio"
-                                  className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                />
-                                <label
-                                  htmlFor="push-everything"
-                                  className="ml-3 block text-sm font-medium text-gray-700"
-                                >
-                                  Everything
-                                </label>
-                              </div>
-                              <div className="flex items-center">
-                                <input
-                                  id="push-email"
-                                  name="push-notifications"
-                                  type="radio"
-                                  className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                />
-                                <label
-                                  htmlFor="push-email"
-                                  className="ml-3 block text-sm font-medium text-gray-700"
-                                >
-                                  Same as email
-                                </label>
-                              </div>
-                              <div className="flex items-center">
-                                <input
-                                  id="push-nothing"
-                                  name="push-notifications"
-                                  type="radio"
-                                  className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                                />
-                                <label
-                                  htmlFor="push-nothing"
-                                  className="ml-3 block text-sm font-medium text-gray-700"
-                                >
-                                  No push notifications
-                                </label>
                               </div>
                             </div>
                           </fieldset>
