@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import React, { useEffect, useNavigate, Fragment } from 'react'
 import { Popover, Transition } from '@headlessui/react'
 import {
   ArrowPathIcon,
@@ -79,6 +79,15 @@ function classNames(...classes) {
 }
 
 export default function Navbar() {
+  // let isAuthorized
+//   const logout = () => {
+//     localStorage.clear();
+//     window.location.href = "/login";
+//   }
+  let isAuthorized = true;
+  // useEffect(() => {
+  // },[navigate]);
+  // console.log(isAuthorized);
   return (
     <Popover className="z-40 sticky top-0 left-0 right-0 bg-white">
       <div className="mx-auto px-10">
@@ -101,6 +110,14 @@ export default function Navbar() {
             </Popover.Button>
           </div>
           <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
+          { isAuthorized ? <button>
+          <a
+                href="/login"
+                className="ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-red-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700"
+              >
+                Log Out
+              </a></button> :
+          <>
             <a href="/login" className="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900">
               Sign in
             </a>
@@ -110,6 +127,8 @@ export default function Navbar() {
             >
               Sign up
             </a>
+            </>
+            }
           </div>
         </div>
       </div>
@@ -142,6 +161,17 @@ export default function Navbar() {
               </div>
             </div>
             <div className="space-y-6 py-6 px-5">
+            {
+              isAuthorized ?
+            <button>
+              <a
+                href="/login"
+                className="flex w-full items-center justify-center rounded-md border border-transparent bg-red-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700"
+              >
+                Log Out
+              </a>
+              </button>
+              :
               <div>
                 <a
                   href="/signup"
@@ -155,7 +185,8 @@ export default function Navbar() {
                     Sign in
                   </a>
                 </p>
-              </div>
+              </div> }             
+
             </div>
           </div>
         </Popover.Panel>

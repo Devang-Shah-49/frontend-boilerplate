@@ -5,6 +5,8 @@ import { Tab } from "@headlessui/react";
 import { useState, useEffect, useContext } from "react";
 import { appContext } from "../../context";
 import EventsServices from "../../services/EventsServices";
+import CreateEventForm from "./CreateEventForm";
+import Calendar from './Calendar';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
