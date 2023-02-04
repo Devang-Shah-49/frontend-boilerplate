@@ -38,12 +38,12 @@ export default function About() {
         <StatusTimeline />
       </div> */}
 
-      <div className="mx-4">
-        <h6 class=" flex flex-col text-center font-bold text-2xl text-bdazzledblue tracking-widest  title-font mb-1">
+      <div className="">
+        <h6 class=" flex flex-col text-center font-bold text-2xl text-bdazzledblue tracking-widest pb- title-font mb-1">
           UPCOMING EVENTS
         </h6>
-        <div className="grid justify-center sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4 ">
-          {eventList.map((item)=>(
+        <div className="grid justify-center sm:grid-cols-2 lg:grid-cols-4 gap-y-8  p-4 ">
+          {eventList?.slice(0,8).map((item)=>(
             <EventCard
             item = {item}
             title={item.name}
