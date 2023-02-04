@@ -39,6 +39,11 @@ export default function CreateEvent() {
     isPayment: false,
     amount: 0,
     approval: [],
+    resourcesRequired: "",
+    eventWebsite: "",
+    estimatedBudget: 0,
+    noOfVolunteers: 0,
+    sponsorsAcquired: "",
   });
 
   const handleCheck = (event) => {
@@ -66,7 +71,6 @@ export default function CreateEvent() {
       });
     });
   };
-
 
   useEffect(() => {
     const call = async () => {
@@ -288,7 +292,7 @@ export default function CreateEvent() {
                                     </form>
                                   </div>
                                 </div>
-                                <div className="col-span-6">
+                                <div className="col-span-3">
                                   <label
                                     htmlFor="about"
                                     className="block text-sm font-medium text-gray-700"
@@ -315,8 +319,31 @@ export default function CreateEvent() {
                                     Brief description for the event.
                                   </p>
                                 </div>
+                                <div className="col-span-3">
+                                  <label
+                                    htmlFor="about"
+                                    className="block text-sm font-medium text-gray-700"
+                                  >
+                                    Resources
+                                  </label>
+                                  <div className="mt-1">
+                                    <input
+                                      type="text"
+                                      name="resources"
+                                      onChange={(e) => {
+                                        setPayload({
+                                          ...payload,
+                                          resourcesRequired: e.target.value,
+                                        });
+                                      }}
+                                      className="mt-1 block  w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                      placeholder="Resources Required"
+                                      defaultValue={""}
+                                    />
+                                  </div>
+                                </div>
                                 {/* <br /> */}
-                                <div className="col-span-6">
+                                <div className="col-span-3">
                                   <label
                                     htmlFor="city"
                                     className="block text-sm font-medium text-gray-700"
@@ -325,12 +352,110 @@ export default function CreateEvent() {
                                   </label>
                                   <input
                                     type="date"
-                                    name="date"
-                                    autoComplete="address-level2"
+                                    name="start_date"
+                                    onChange={(e) => {
+                                      setPayload({
+                                        ...payload,
+                                        startDate: e.target.value,
+                                      });
+                                    }}
+                                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                  />
+                                </div>
+                                <div className="col-span-3">
+                                  <label
+                                    htmlFor="city"
+                                    className="block text-sm font-medium text-gray-700"
+                                  >
+                                    Date
+                                  </label>
+                                  <input
+                                    type="date"
+                                    name="end_date"
+                                    onChange={(e) => {
+                                      setPayload({
+                                        ...payload,
+                                        endDate: e.target.value,
+                                      });
+                                    }}
+                                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                  />
+                                </div>
+                                <div className="col-span-3">
+                                  <label
+                                    htmlFor="city"
+                                    className="block text-sm font-medium text-gray-700"
+                                  >
+                                    Volunteers
+                                  </label>
+                                  <input
+                                    type="number"
+                                    name="noOfVolunteers"
+                                    placeholder="Number of Volunteers"
                                     onChange={(e) => {
                                       setPayload({
                                         ...payload,
                                         date: e.target.value,
+                                      });
+                                    }}
+                                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                  />
+                                </div>
+                                <div className="col-span-3">
+                                  <label
+                                    htmlFor="city"
+                                    className="block text-sm font-medium text-gray-700"
+                                  >
+                                    Budget
+                                  </label>
+                                  <input
+                                    type="number"
+                                    name="noOfVolunteers"
+                                    placeholder="Estimated Budget"
+                                    onChange={(e) => {
+                                      setPayload({
+                                        ...payload,
+                                        estimatedBudget: e.target.value,
+                                      });
+                                    }}
+                                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                  />
+                                </div>
+                                <div className="col-span-3">
+                                  <label
+                                    htmlFor="city"
+                                    className="block text-sm font-medium text-gray-700"
+                                  >
+                                    Website
+                                  </label>
+                                  <input
+                                    type="text"
+                                    name="event_website"
+                                    placeholder="Event Website Link"
+                                    onChange={(e) => {
+                                      setPayload({
+                                        ...payload,
+                                        eventWebsite: e.target.value,
+                                      });
+                                    }}
+                                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                  />
+                                </div>
+                                <div className="col-span-3">
+                                  <label
+                                    htmlFor="city"
+                                    className="block text-sm font-medium text-gray-700"
+                                  >
+                                    Sponsors
+                                  </label>
+                                  <input
+                                    type="text"
+                                    name="sponsors"
+                                    placeholder="Sponsors Acquired"
+                                    onChange={(e) => {
+                                      setPayload({
+                                        ...payload,
+                                        sponsorsAcquired: e.target.value,
                                       });
                                     }}
                                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
