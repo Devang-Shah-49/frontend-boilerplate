@@ -19,6 +19,8 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import Navbar from '../navbar';
 import Banner from './Banner';
 import About from './About';
+import Team from './Team';
+import Footer from '../footer';
 
 // const solutions = [
 //   {
@@ -82,6 +84,8 @@ export default function CommitteeDashboard() {
       <Navbar />
       <Banner />
       <About />
+      <Team />
+      <Footer />
     </>
   )
 }

@@ -66,7 +66,6 @@ export default function About() {
         </div>
       </div>
     </div>
-    <h6 class=" flex flex-col text-center  text-2xl text-purple-500 tracking-widest font-medium title-font mb-1">TEAM</h6>
         
     </div>
   )
