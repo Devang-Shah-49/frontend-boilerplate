@@ -21,118 +21,61 @@ export default function About() {
         </div>
       </div>
 
-      <div className="flex justify-center">
+      {/* <div className="flex justify-center">
         <StatusTimeline />
-      </div>
+      </div> */}
 
-      <h6 class=" flex flex-col text-center font-bold text-2xl text-bdazzledblue tracking-widest  title-font mb-1">
-        UPCOMING EVENTS
-      </h6>
-      <div className="flex justify-center p-4 ">
-        <EventCard
-          title="Title 1"
-          description={"Hello There "}
-          image=""
-          id="1"
-        />
-        <EventCard
-          title="Title 2"
-          description={"Hello There "}
-          image=""
-          id="2"
-        />
-        <EventCard
-          title="Title 3"
-          description={"Hello There "}
-          image=""
-          id="3"
-        />
+      <div className="mx-4">
+        <h6 class=" flex flex-col text-center font-bold text-2xl text-bdazzledblue tracking-widest  title-font mb-1">
+          UPCOMING EVENTS
+        </h6>
+        <div className="flex justify-center p-4 ">
+          <EventCard
+            title="Title 1"
+            description={"Hello There "}
+            image=""
+            id="1"
+          />
+          <EventCard
+            title="Title 2"
+            description={"Hello There "}
+            image=""
+            id="2"
+          />
+          <EventCard
+            title="Title 3"
+            description={"Hello There "}
+            image=""
+            id="3"
+          />
+        </div>
       </div>
       <br />
-      <h6 class=" flex flex-col text-center text-2xl text-bdazzledblue tracking-widest font-medium title-font mb-1">
-        PAST EVENTS
-      </h6>
-      <div class="flex flex-wrap mx-10">
-        <div class="xl:w-1/4 md:w-1/2 p-4">
-          <div class="bg-gray-200 p-6 rounded-lg">
-            <img
-              class="h-40 rounded w-full object-cover object-center mb-6"
-              src="https://th.bing.com/th/id/OIP.4SHG9pPQ1YaM8oxYteyAbwHaEK?pid=ImgDet&rs=1"
-              alt=""
-            />
-            <h3 class="tracking-widest text-indigo-500 text-xs font-medium title-font">
-              May 2022
-            </h3>
-            <h2 class="text-lg text-gray-900 font-medium title-font mb-4">
-              Hackathon
-            </h2>
-            <p class="leading-relaxed text-base">
-              Fingerstache flexitarian street art 8-bit waistcoat. Distillery
-              hexagon disrupt edison bulbche.
-            </p>
-          </div>
-        </div>
-        <div class="xl:w-1/4 md:w-1/2 p-4">
-          <div class="bg-gray-200 p-6 rounded-lg">
-            <img
-              class="h-40 rounded w-full object-cover object-center mb-6"
-              src="https://madlyodd.com/wp-content/uploads/2019/06/Mumbai-Dance-team-OG3-1000x525.png"
-              alt="content"
-            />
-            <h3 class="tracking-widest text-indigo-500 text-xs font-medium title-font">
-              August 2022
-            </h3>
-            <h2 class="text-lg text-gray-900 font-medium title-font mb-4">
-              Cultural Festival
-            </h2>
-            <p class="leading-relaxed text-base">
-              Fingerstache flexitarian street art 8-bit waistcoat. Distillery
-              hexagon disrupt edison bulbche.
-            </p>
-          </div>
-        </div>
-        <div class="xl:w-1/4 md:w-1/2 p-4">
-          <div class="bg-gray-200 p-6 rounded-lg">
-            <img
-              class="h-40 rounded w-full object-cover object-center mb-6"
-              src="https://www.mansworldindia.com/wp-content/uploads/2019/09/cfxrht-fg67-1.jpg"
-              alt="content"
-            />
-            <h3 class="tracking-widest text-indigo-500 text-xs font-medium title-font">
-              November 2022
-            </h3>
-            <h2 class="text-lg text-gray-900 font-medium title-font mb-4">
-              Gaming Blast
-            </h2>
-            <p class="leading-relaxed text-base">
-              Fingerstache flexitarian street art 8-bit waistcoat. Distillery
-              hexagon disrupt edison bulbche.
-            </p>
-          </div>
-        </div>
-        <div class="xl:w-1/4 md:w-1/2 p-4">
-          <div class="bg-gray-200 p-6 rounded-lg">
-            <img
-              class="h-40 rounded w-full object-cover object-center mb-6"
-              src="https://th.bing.com/th/id/OIP.yYU7kTuH5UR6rOoEuCajmAHaDT?pid=ImgDet&rs=1"
-              alt="content"
-            />
-            <h3 class="tracking-widest text-indigo-500 text-xs font-medium title-font">
-              January 2023
-            </h3>
-            <h2 class="text-lg text-gray-900 font-medium title-font mb-4">
-              Racing contest
-            </h2>
-            <p class="leading-relaxed text-base">
-              Fingerstache flexitarian street art 8-bit waistcoat. Distillery
-              hexagon disrupt edison bulbche.
-            </p>
-          </div>
+      <div className="mx-4">
+        <h6 class=" flex flex-col text-center font-bold text-2xl text-bdazzledblue tracking-widest  title-font mb-1">
+          PAST EVENTS
+        </h6>
+        <div className="flex justify-center p-4 ">
+          <EventCard
+            title="Title 1"
+            description={"Hello There "}
+            image=""
+            id="1"
+          />
+          <EventCard
+            title="Title 2"
+            description={"Hello There "}
+            image=""
+            id="2"
+          />
+          <EventCard
+            title="Title 3"
+            description={"Hello There "}
+            image=""
+            id="3"
+          />
         </div>
       </div>
-      <h6 class=" flex flex-col text-center  text-2xl text-purple-500 tracking-widest font-medium title-font mb-1">
-        TEAM
-      </h6>
     </div>
   );
 }
