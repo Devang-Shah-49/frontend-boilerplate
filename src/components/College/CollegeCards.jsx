@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import {Link} from "react-router-dom";
 
-const EventCard = ({ item, id, title, description, image }) => {
+const CollegeCards = ({ item, id, title, description, image }) => {
   return (
     <>
     <Link to={`/committee/event_${id}`} state={{"event_details":item}}>
@@ -52,4 +52,4 @@ const EventCard = ({ item, id, title, description, image }) => {
   );
 };
 
-export default EventCard;
+export default CollegeCards;
