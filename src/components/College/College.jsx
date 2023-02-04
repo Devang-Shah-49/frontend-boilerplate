@@ -9,7 +9,7 @@ const College = () => {
     <div>
       <Navbar />
       <CollegeBanner />
-      <RaiseQueryModal />
+      {/* <RaiseQueryModal /> */}
       <CollegeHero />
     </div>
   );
