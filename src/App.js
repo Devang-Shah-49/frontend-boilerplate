@@ -10,6 +10,7 @@ import CreateEvent from './components/Committee/CreateEvent';
 import CreateCommittee from "./components/College/CreateCommittee";
 import CollegeHome from "./pages/collegepage";
 import Home from './pages/homepage';
+import EventDetails from './components/Committee/EventDetails';
 import Landingpage from './pages/landingpage';
 import Signup from './components/signup';
 import { useContext, useState, useEffect } from 'react';
@@ -34,13 +35,14 @@ function App() {
         <Router>
           <Routes>
             <Route exact path="/login" element={<Login />} />
+            <Route exact path="committee/:event_id" element={<EventDetails />} />
             <Route exact path="/signup" element={<Signup />} />
             <Route exact path="/" element={<Landingpage />} />
             <Route exact path="/committee/create-event" element={<PrivateRoute component={CreateEvent} />} />
             <Route exact path="/college/create-committee" element={<PrivateRoute component={CreateCommittee} />} />
             <Route exact path="/committee" element={<PrivateRoute component={Home} />} />
             <Route exact path="/college" element={<PrivateRoute component={CollegeHome} />} />
-            <Route path="*" element={<Navigate replace to="/" />} />
+            {/* <Route path="*" element={<Navigate replace to="/" />} /> */}
           </Routes>
         </Router>
       </appContext.Provider>

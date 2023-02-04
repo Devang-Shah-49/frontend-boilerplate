@@ -1,20 +1,21 @@
-import React, { useEffect,useContext } from "react";
+import React, { useEffect,useContext, useState } from "react";
 import EventCard from "./EventCard";
 import StatusTimeline from "./StatusTimeline";
 import { appContext } from "../../context";
 import EventsServices from "../../services/EventsServices";
 
 export default function About() {
-  const {token} = useContext(appContext)
-  console.log(token)
+  const [eventList, setEventList] = useState([]);
   useEffect(()=>{
     const call = async ()=>{
-        await EventsServices.getEvents(token).then((res)=>{
-          console.log(res)
+        await EventsServices.getEvents(localStorage.getItem("appToken")).then((res)=>{
+          setEventList(res.data.data.approvalPending);
+          console.log(res.data.data);
         })
-    }
-    call();
-  },[])
+      }
+      call();
+    },[])
+    console.log(eventList);
   return (
     <div>
       <div class="container px-5 pt-14 mx-auto">
@@ -41,25 +42,16 @@ export default function About() {
         <h6 class=" flex flex-col text-center font-bold text-2xl text-bdazzledblue tracking-widest  title-font mb-1">
           UPCOMING EVENTS
         </h6>
-        <div className="flex justify-center p-4 ">
-          <EventCard
-            title="Title 1"
-            description={"Hello There "}
-            image=""
-            id="1"
+        <div className="grid justify-center sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4 ">
+          {eventList.map((item)=>(
+            <EventCard
+            item = {item}
+            title={item.name}
+            description={item.description}
+            image={item.thumbnail}
+            id={item._id}
           />
-          <EventCard
-            title="Title 2"
-            description={"Hello There "}
-            image=""
-            id="2"
-          />
-          <EventCard
-            title="Title 3"
-            description={"Hello There "}
-            image=""
-            id="3"
-          />
+          ))}
         </div>
       </div>
       <br />
