@@ -84,7 +84,7 @@ export default function Navbar() {
 //     localStorage.clear();
 //     window.location.href = "/login";
 //   }
-  let isAuthorized = localStorage.getItem("isAuthorized");
+  let isAuthorized = true;
   // useEffect(() => {
   // },[navigate]);
   // console.log(isAuthorized);
@@ -110,7 +110,7 @@ export default function Navbar() {
             </Popover.Button>
           </div>
           <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
-          { isAuthorized ? <button onClick={localStorage.clear()}>
+          { isAuthorized ? <button>
           <a
                 href="/login"
                 className="ml-8 inline-flex items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-red-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700"
@@ -163,7 +163,7 @@ export default function Navbar() {
             <div className="space-y-6 py-6 px-5">
             {
               isAuthorized ?
-            <button onClick={localStorage.clear()}>
+            <button>
               <a
                 href="/login"
                 className="flex w-full items-center justify-center rounded-md border border-transparent bg-red-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700"
