@@ -14,9 +14,9 @@ const EventCard = ({ item, id, title, description, image }) => {
             src={image}
             alt=""
           />
-          <span class=" z-10 absolute top-2 right-0 bg-red-500 text-white text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
+          {/* <span class=" z-10 absolute top-2 right-0 bg-red-500 text-white text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
             Pending
-          </span>
+          </span> */}
         </div>
         <div class="p-5">
           <Link to={`/committee/event_${id}`} state={{"event_details":item}}>

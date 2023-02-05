@@ -5,17 +5,19 @@ import { appContext } from "../../context";
 import EventsServices from "../../services/EventsServices";
 
 export default function About() {
-  const [eventList, setEventList] = useState([]);
+  const [approvedEventList, setApprovedEventList] = useState([]);
+  const [publishedEventList, setPublishedEventList] = useState([]);
+  const [approvalPendingEventList, setApprovalPendingEventList] = useState([]);
   useEffect(()=>{
     const call = async ()=>{
         await EventsServices.getEvents(localStorage.getItem("appToken")).then((res)=>{
-          setEventList(res.data.data.approvalPending);
-          console.log("kc",res.data);
+          setApprovalPendingEventList(res.data.data.approvalPending);
+          setPublishedEventList(res.data.data.published);
+          setApprovedEventList(res.data.data.approved);
         })
       }
       call();
     },[])
-    console.log(eventList);
   return (
     <div>
       <div class="container px-5 pt-14 mx-auto">
@@ -38,12 +40,14 @@ export default function About() {
         <StatusTimeline />
       </div> */}
 
+      
+      <br />
       <div className="">
         <h6 class=" flex flex-col text-indigo-500 text-center text-2xl  tracking-widest pb- title-font mb-1">
-          UPCOMING EVENTS
+          APPROVAL PENDING EVENTS
         </h6>
         <div className="grid justify-center sm:grid-cols-2 lg:grid-cols-4 gap-y-8  p-4 ">
-          {eventList?.slice(0,8).map((item)=>(
+          {approvalPendingEventList?.slice(0,8).map((item)=>(
             <EventCard
             item = {item}
             title={item.name}
@@ -55,29 +59,37 @@ export default function About() {
         </div>
       </div>
       <br />
-      <div className="mx-4">
-        <h6 class=" flex flex-col text-center text-2xl mt-12 text-indigo-500 tracking-widest  title-font mb-1">
-          PAST EVENTS
+      <div className="">
+        <h6 class=" flex flex-col text-indigo-500 text-center text-2xl  tracking-widest pb- title-font mb-1">
+          PUBLISHED EVENTS
         </h6>
-        <div className="flex justify-center p-4 ">
-          <EventCard
-            title="Title 1"
-            description={"Hello There "}
-            image=""
-            id="1"
+        <div className="grid justify-center sm:grid-cols-2 lg:grid-cols-4 gap-y-8  p-4 ">
+          {publishedEventList?.slice(0,8).map((item)=>(
+            <EventCard
+            item = {item}
+            title={item.name}
+            description={item.description}
+            image={item.thumbnail}
+            id={item._id}
           />
-          <EventCard
-            title="Title 2"
-            description={"Hello There "}
-            image=""
-            id="2"
+          ))}
+        </div>
+      </div>
+      <br />
+      <div className="">
+        <h6 class=" flex flex-col text-indigo-500 text-center text-2xl  tracking-widest pb- title-font mb-1">
+          APPROVED EVENTS
+        </h6>
+        <div className="grid justify-center sm:grid-cols-2 lg:grid-cols-4 gap-y-8  p-4 ">
+          {approvedEventList?.slice(0,8).map((item)=>(
+            <EventCard
+            item = {item}
+            title={item.name}
+            description={item.description}
+            image={item.thumbnail}
+            id={item._id}
           />
-          <EventCard
-            title="Title 3"
-            description={"Hello There "}
-            image=""
-            id="3"
-          />
+          ))}
         </div>
       </div>
     </div>
