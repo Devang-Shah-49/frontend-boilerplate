@@ -5,7 +5,7 @@ import { Tab } from "@headlessui/react";
 import { useState, useEffect, useContext } from "react";
 import EventsServices from "../../services/EventsServices";
 import CreateEventForm from "./CreateEventForm";
-import Calendar from "./Calendar";
+import TimeSlots from "./TimeSlots";
 import { v4 as uuidv4 } from "uuid";
 import { appContext } from "../../context";
 import {
@@ -25,6 +25,7 @@ export default function CreateEvent() {
   const { token } = useContext(appContext);
   // console.log(token);
   const [imageUpload, setImageUpload] = useState();
+  const [selectedIndex, setSelectedIndex] = useState(0);
   const [approvalBodiesList, setApprovalBodiesList] = useState();
   const [approvePayload, setApprovePayload] = useState([]);
   const [checked, setChecked] = useState([]);
@@ -98,13 +99,13 @@ export default function CreateEvent() {
       <Navbar />
 
       <div>
-        <Tab.Group>
+        <Tab.Group selectedIndex={selectedIndex} onChange={setSelectedIndex}>
           <Tab.List
             // as={Fragment}
             className="mt-8 flex  items-center justify-center w-1/2 rounded-xl bg-indigo-600 lg:mx-96 p-1"
           >
             <Tab
-              index={1}
+              index={0}
               className={({ selected }) =>
                 classNames(
                   "w-full rounded-lg py-3.5 text-md font-medium leading-5 text-indigo-600",
@@ -118,7 +119,7 @@ export default function CreateEvent() {
               Event Registration
             </Tab>
             <Tab
-              index={2}
+              index={1}
               className={({ selected }) =>
                 classNames(
                   "w-full rounded-lg py-3.5 text-md font-medium leading-5 text-indigo-600",
@@ -132,7 +133,7 @@ export default function CreateEvent() {
               Request Permission
             </Tab>
             <Tab
-              index={3}
+              index={2}
               className={({ selected }) =>
                 classNames(
                   "w-full rounded-lg py-3.5 text-md font-medium leading-5 text-indigo-600",
@@ -545,10 +546,10 @@ export default function CreateEvent() {
                             <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
                               <button
                                 type="button"
-                                onClick={handleClick}
+                                onClick={() => setSelectedIndex(1)}
                                 className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                               >
-                                Save
+                                Next
                               </button>
                             </div>
                           </div>
@@ -565,25 +566,25 @@ export default function CreateEvent() {
                   <div className="md:col-span-1">
                     <div className="px-4 sm:px-0">
                       <h3 className="text-lg font-medium leading-6 text-gray-900">
-                        Notifications
+                        Faculty/Administration Approval
                       </h3>
-                      <p className="mt-1 text-sm text-gray-600">
-                        Decide which communications you'd like to receive and
-                        how.
+                      <p className="mt-1 text-sm text-gray-500 w-[25em]">
+                        Decide which college bodies would be approving your
+                        proposed event.
                       </p>
                     </div>
                   </div>
                   <div className="mt-5 md:col-span-2 md:mt-0">
                     <form action="#" method="POST">
-                      <div className="overflow-hidden shadow sm:rounded-md">
+                      <div className="overflow-hidden shadow-md sm:rounded-md">
                         <div className="space-y-6 bg-white px-4 py-5 sm:p-6">
                           <fieldset>
-                            <legend className="sr-only">By Email</legend>
+                            <legend className="sr-only">Approval Bodies</legend>
                             <div
-                              className="text-base font-medium text-gray-900"
+                              className="text-lg font-semibold text-gray-900"
                               aria-hidden="true"
                             >
-                              By Email
+                              Approval Bodies
                             </div>
                             <div className="mt-4 space-y-4">
                               {approvalBodiesList?.map((item) => (
@@ -618,24 +619,25 @@ export default function CreateEvent() {
                                           approval: updatedList,
                                         });
                                       }}
-                                      className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                      className="h-6 w-6 rounded border-gray-400 text-burntsienna mt-24"
                                     />
                                   </div>
+
                                   <div
                                     href="#"
-                                    class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row w-full  dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
+                                    class="flex flex-col items-center bg-indigo-50 border border-gray-200 rounded-lg shadow-sm md:flex-row w-full  dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
                                   >
                                     <img
-                                      class="lg:h-28 lg:w-28 rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
-                                      src="https://images.unsplash.com/photo-1661956602139-ec64991b8b16?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=365&q=80"
+                                      class="lg:h-28 lg:w-28 bg-white rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
+                                      src={item?.thumbnail}
                                       alt=""
                                     />
                                     <div class="flex flex-col justify-between p-4 leading-normal">
                                       <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-                                        {item.name}
+                                        {item?.name}
                                       </h5>
                                       <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                                        {item.email}
+                                        {item?.email}
                                       </p>
                                     </div>
                                   </div>
@@ -644,12 +646,13 @@ export default function CreateEvent() {
                             </div>
                           </fieldset>
                         </div>
-                        <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
+                        <div className="px-4 py-3 text-right sm:px-6">
                           <button
-                            type="submit"
+                            type="button"
+                            onClick={handleClick}
                             className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                           >
-                            Save
+                            Submit
                           </button>
                         </div>
                       </div>
@@ -658,7 +661,9 @@ export default function CreateEvent() {
                 </div>
               </div>
             </Tab.Panel>
-            <Tab.Panel>Check Available Status</Tab.Panel>
+            <Tab.Panel>
+              <TimeSlots />
+            </Tab.Panel>
           </Tab.Panels>
         </Tab.Group>
       </div>

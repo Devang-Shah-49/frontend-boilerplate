@@ -19,8 +19,9 @@ import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import Navbar from "../navbar";
 import Banner from "./Banner";
 import CommitteeHome from "./CommitteeHome";
-import Team from './Team';
-import Footer from '../footer';
+import Team from "./Team";
+import Footer from "../footer";
+import {Calendar} from "./availability/Calendar";
 
 // const solutions = [
 //   {
