@@ -5,7 +5,8 @@ import CollegeClubs from "./CollegeClubs";
 export default function CollegeHero() {
   return (
     <div>
-         <div className='bg-[url("https://d8it4huxumps7.cloudfront.net/uploads/images/opportunity/banner/63a493b4e5b10_spit-hackathon-2023.png?d=1920x557")] w-full bg-cover bg-center p-48'>
+      {/* https://d8it4huxumps7.cloudfront.net/uploads/images/opportunity/banner/63a493b4e5b10_spit-hackathon-2023.png?d=1920x557 */}
+         <div className='bg-[url("https://images.static-collegedunia.com/public/college_data/images/campusimage/1479361245GJHGHJ.PNG")] w-full bg-cover bg-center p-48'>
             <div className="flex flex-col items-center justify-center">
                 <h1 className="mb-2 text-4xl font-bold text-center">
                 |
