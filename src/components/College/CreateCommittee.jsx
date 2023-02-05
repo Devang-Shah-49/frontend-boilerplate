@@ -10,8 +10,10 @@ import {
 } from "firebase/storage";
 import { storage } from "../../firebase/config";
 import CollegeAdminService from "../../services/CollegeAdminService";
+import { useNavigate } from "react-router";
 
 const CreateCommittee = () => {
+  const navigate = useNavigate();
   const { token } = useContext(appContext);
   // console.log(token);
   const [imageUpload, setImageUpload] = useState();
@@ -25,12 +27,15 @@ const CreateCommittee = () => {
     email: "",
     password: "",
     thumbnail: "",
+    websiteUrl: "",
+    socialUrl: "",
   });
 
   const handleClick = async () => {
     setLoad(true);
     await CollegeAdminService.createCommittee(payload, token).then((res) => {
       console.log(res);
+      navigate("/college");
     });
   };
 
@@ -121,6 +126,46 @@ const CreateCommittee = () => {
                   />
                 </div>
 
+                <div class="mb-6">
+                  <label
+                    for="default-input"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >
+                    Social Handle</label>
+                  <input
+                    type="text"
+                    placeholder="Social Media"
+                    name="socialUrl"
+                    onChange={(e) => {
+                      setPayload({
+                        ...payload,
+                        socialUrl: e.target.value,
+                      });
+                    }}
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  />
+                </div>
+
+                <div class="mb-6">
+                  <label
+                    for="default-input"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >
+                    Club Website</label>
+                  <input
+                    type="text"
+                    placeholder="Club's website"
+                    name="websiteUrl"
+                    onChange={(e) => {
+                      setPayload({
+                        ...payload,
+                        websiteUrl: e.target.value,
+                      });
+                    }}
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  />
+                </div>
+
                 <label
                   for="input-group-1"
                   class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -150,7 +195,7 @@ const CreateCommittee = () => {
                       });
                     }}
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="name@flowbite.com"
+                    placeholder="name@xyz.com"
                   />
                 </div>
                 <label

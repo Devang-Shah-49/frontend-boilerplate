@@ -2,20 +2,21 @@ import React from "react";
 import axios from "axios";
 import {Link} from "react-router-dom";
 
-const EventCard = ({ item, id, title, description, image }) => {
+const EventCard = ({ item, id, title, description, image }) => {  
   return (
     <>
     <Link to={`/committee/event_${id}`} state={{"event_details":item}}>
       <div class="max-w-md bg-white border lg:mx-8 border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
         <div className="relative">
           <img
-            className="rounded-t-lg"
+          height={70}
+            className="object-contain h-44 w-80 rounded-t-lg"
             src={image}
             alt=""
           />
-          <span class=" z-10 absolute top-2 right-0 bg-darkskyblue text-bdazzledblue text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
+          {/* <span class=" z-10 absolute top-2 right-0 bg-red-500 text-white text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300">
             Pending
-          </span>
+          </span> */}
         </div>
         <div class="p-5">
           <Link to={`/committee/event_${id}`} state={{"event_details":item}}>

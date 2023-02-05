@@ -112,8 +112,8 @@ export default function Navbar() {
           </div>
           <div className="hidden items-center justify-end md:flex md:flex-1 lg:w-0">
             {localStorage.getItem('isAuthorized') ? <button onClick={() => {
-              // localStorage.clear();
-              // navigate('/login')
+              localStorage.clear();
+              window.location.reload();
             }}>
               <a
                 href="/login"
@@ -165,9 +165,10 @@ export default function Navbar() {
               </div>
             </div>
             <div className="space-y-6 py-6 px-5">
-              {/* {
-              isAuthorized ?
-            <button>
+            {localStorage.getItem('isAuthorized') ? <button onClick={() => {
+              localStorage.clear();
+              window.location.reload();
+            }}>?
               <a
                 href="/login"
                 className="flex w-full items-center justify-center rounded-md border border-transparent bg-red-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700"
@@ -175,7 +176,7 @@ export default function Navbar() {
                 Log Out
               </a>
               </button>
-              : */}
+              :
               <div>
                 <a
                   href="/signup"
@@ -184,13 +185,13 @@ export default function Navbar() {
                   Sign up
                 </a>
                 <p className="mt-6 text-center text-base font-medium text-gray-500">
-                  Existing customer?{' '}
+                  Existing customer?
                   <a href="/login" className="text-indigo-600 hover:text-indigo-500">
                     Sign in
                   </a>
                 </p>
               </div>
-              {/* }              */}
+               }
 
             </div>
           </div>
